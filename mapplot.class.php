@@ -45,14 +45,18 @@ class MapPlot {
 		return true;
 	}
 	
-	function plot($lat, $lon) {
+	public function __destruct() {
+		imagedestroy($this->image);
+	}
+	
+	public function plot($lat, $lon) {
 		$color = imagecolorallocate($this->image, 255, 0, 0);
 		$pixelsy = ($this->image_width / $this->width) * ($lat + 180);
 		$pixelsx = ($this->image_height / $this->height) * ($lon - ($lon * 2) + 90);
 		imagefilledellipse($this->image, $pixelsy, $pixelsx, 20, 20, $color);
 	}
 	
-	function output() {
+	public function output() {
 		imagejpeg($this->image, 'out.jpg');
 		return true;
 	}
